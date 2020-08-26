@@ -7,17 +7,21 @@ public class Duke {
         System.out.println(separator);
     }
 
-    public static void printArray(String[] array) {
+    public static void printTaskList(Task[] array) {
+        System.out.println("Here are the tasks in your list:");
         for(int i = 1; i <= array.length; i++) {
-            System.out.println(i + ". " + array[i-1]);
+            Task item = array[i - 1];
+            System.out.println(i + "." + item.getStatusAndName());
         }
     }
+
+
     public static void main(String[] args) {
         String greet = " Hello! I'm Duke";
         String prompt = " What can I do for you?";
         String goodbye = " Bye. Hope to see you again soon!";
 
-        String[] inputsArray = new String[100];
+        Task[] inputsArray = new Task[100];
         int inputCount = 0;
 
         String input;
@@ -32,11 +36,19 @@ public class Duke {
         while (!(input.equals("bye"))){
             printSeparator();
             if(input.equals("list")) {
-                printArray(Arrays.copyOf(inputsArray, inputCount));
+                printTaskList(Arrays.copyOf(inputsArray, inputCount));
+            }
+            else if(input.contains("done ")) {
+                String[] inputWords = input.split(" ");
+                Task item = inputsArray[Integer.parseInt(inputWords[1]) - 1];
+                item.setDone();
+                System.out.println("Nice! I've marked this task as done:");
+                System.out.println(" " + item.getStatusAndName());
             }
             else {
                 System.out.println("added: " + input);
-                inputsArray[inputCount++] = input;
+                Task item = new Task(input);
+                inputsArray[inputCount++] = item;
             }
             printSeparator();
             input = in.nextLine();

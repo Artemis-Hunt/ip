@@ -21,7 +21,7 @@ public class Duke {
         String prompt = " What can I do for you?";
         String goodbye = " Bye. Hope to see you again soon!";
 
-        Task[] inputsArray = new Task[100];
+        Task[] ListOfInputs = new Task[100];
         int inputCount = 0;
 
         String input;
@@ -36,11 +36,11 @@ public class Duke {
         while (!(input.equals("bye"))){
             printSeparator();
             if(input.equals("list")) {
-                printTaskList(Arrays.copyOf(inputsArray, inputCount));
+                printTaskList(Arrays.copyOf(ListOfInputs, inputCount));
             }
             else if(input.contains("done ")) {
                 String[] inputWords = input.split(" ");
-                Task item = inputsArray[Integer.parseInt(inputWords[1]) - 1];
+                Task item = ListOfInputs[Integer.parseInt(inputWords[1]) - 1];
                 item.setDone();
                 System.out.println("Nice! I've marked this task as done:");
                 System.out.println(" " + item.getStatusAndName());
@@ -48,7 +48,7 @@ public class Duke {
             else {
                 System.out.println("added: " + input);
                 Task item = new Task(input);
-                inputsArray[inputCount++] = item;
+                ListOfInputs[inputCount++] = item;
             }
             printSeparator();
             input = in.nextLine();

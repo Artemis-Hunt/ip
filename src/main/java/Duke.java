@@ -36,53 +36,59 @@ public class Duke {
         String command;
         String commandParams;
         int indexOfFirstBlank;
-        command = input;
 
-        while (!(command.equals("bye"))){
+        while (!(input.equals("bye"))){
             System.out.println("Command is: " + input);
-            taskCount++;
             indexOfFirstBlank = input.indexOf(" ");
+            command = input;
 
             printSeparator();
 
-            if(command.equals("list")) {
+            if(input.equals("list")) {
                 printTaskList(tasks, taskCount);
             }
             else if(indexOfFirstBlank != -1) {
                 command = input.substring(0, indexOfFirstBlank);
-                commandParams = input.substring(indexOfFirstBlank);
-
+                commandParams = input.substring(indexOfFirstBlank + 1);
+                Task item;
                 if (command.equals("done")) {
-                    Task item = tasks[Integer.parseInt(commandParams) - 1];
+                    item = tasks[Integer.parseInt(commandParams) - 1];
                     item.setDone();
                     System.out.println("Nice! I've marked this task as done:");
                     System.out.println(" " + item);
                 } else if (command.equals("todo")) {
-                    Task item = new ToDo(commandParams);
+                    item = new ToDo(commandParams);
                     System.out.println("Got it. I've added this task:");
                     System.out.println(" " + item);
-                    System.out.println("Now you have " + taskCount + " tasks in the list.");
+                    System.out.println("Now you have " + (taskCount + 1) + " tasks in the list.");
+                    tasks[taskCount] = item;
+                    taskCount++;
                 } else if (command.equals("deadline")) {
                     int indexOfBy = commandParams.indexOf("/by");
                     String taskName = commandParams.substring(0, indexOfBy);
                     String deadline = commandParams.substring(indexOfBy + 4);
-                    Task item = new Deadline(taskName, deadline);
+                    item = new Deadline(taskName, deadline);
                     System.out.println("Got it. I've added this task:");
                     System.out.println(" " + item);
-                    System.out.println("Now you have " + taskCount + " tasks in the list.");
+                    System.out.println("Now you have " + (taskCount + 1) + " tasks in the list.");
+                    tasks[taskCount] = item;
+                    taskCount++;
                 } else if (command.equals("event")) {
                     int indexOfAt = commandParams.indexOf("/at");
                     String taskName = commandParams.substring(0, indexOfAt);
                     String deadline = commandParams.substring(indexOfAt + 4);
-                    Task item = new Event(taskName, deadline);
+                    item = new Event(taskName, deadline);
                     System.out.println("Got it. I've added this task:");
                     System.out.println(" " + item);
-                    System.out.println("Now you have " + taskCount + " tasks in the list.");
+                    System.out.println("Now you have " + (taskCount + 1) + " tasks in the list.");
+                    tasks[taskCount] = item;
+                    taskCount++;
                 }
                 else {
                     System.out.println("added: " + input);
-                    Task item = new Task(input);
+                    item = new Task(input);
                     tasks[taskCount] = item;
+                    taskCount++;
                 }
             }
 

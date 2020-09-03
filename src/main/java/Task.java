@@ -15,7 +15,8 @@ public class Task {
         return (isDone ? "\u2713" : "\u2718");
     }
 
-    public String getStatusAndName() {
+    @Override
+    public String toString() {
         return ("[" + (isDone ? "\u2713" : "\u2718") + "]" + " " + taskName);
     }
 

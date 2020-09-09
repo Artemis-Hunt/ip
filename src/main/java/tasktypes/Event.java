@@ -1,6 +1,8 @@
+package tasktypes;
+
 public class Event extends Task{
 
-    public String startAndEnd;
+    protected String startAndEnd;
 
     public Event(String taskName, String startAndEnd) {
         super(taskName);

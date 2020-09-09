@@ -1,5 +1,7 @@
+package tasktypes;
+
 public class Deadline extends Task{
-    public String by;
+    protected String by;
 
     public Deadline(String taskName, String deadline) {
         super(taskName);

@@ -1,6 +1,8 @@
+package tasktypes;
+
 public class Task {
-    private String taskName;
-    private boolean isDone;
+    protected String taskName;
+    protected boolean isDone;
 
     public Task(String taskName) {
         this.taskName = taskName;
@@ -14,13 +16,13 @@ public class Task {
     public String getDoneStatusSymbol() {
         return (isDone ? "\u2713" : "\u2718");
     }
+    public String getTaskName() {
+        return taskName;
+    }
 
     @Override
     public String toString() {
         return ("[" + (isDone ? "\u2713" : "\u2718") + "]" + " " + taskName);
     }
 
-    public String getTaskName() {
-        return taskName;
-    }
 }

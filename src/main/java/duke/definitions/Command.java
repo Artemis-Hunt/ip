@@ -1,4 +1,4 @@
-package definitions;
+package duke.definitions;
 
 public enum Command{
     PRINT_LIST,

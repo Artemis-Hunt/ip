@@ -1,4 +1,4 @@
-package tasktypes;
+package duke.tasktypes;
 
 public abstract class Task {
     protected String taskName;

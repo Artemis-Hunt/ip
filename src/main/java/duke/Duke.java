@@ -1,9 +1,12 @@
-import definitions.CommandPacket;
-import exceptions.InvalidParamArgument;
-import handlers.CommandHandler;
-import handlers.InputParser;
-import printers.Cliui;
-import tasktypes.Task;
+package duke;
+
+import duke.definitions.CommandPacket;
+import duke.exceptions.EmptyContentException;
+import duke.exceptions.InvalidParamArgument;
+import duke.handlers.CommandHandler;
+import duke.handlers.InputParser;
+import duke.printers.Cliui;
+import duke.tasktypes.Task;
 
 import java.util.Scanner;
 
@@ -26,14 +29,11 @@ public class Duke {
         while(!(input.equals("bye"))) {
             try {
                 CommandPacket packet = new InputParser(input).parseInput();
-                //System.out.println(packet);
                 CommandHandler.handleCommand(packet, tasks, taskCountWrapper);
-            } catch (IllegalStateException e) {
-                Cliui.printError(e);
-            } catch (InvalidParamArgument e) {
+            } catch (IllegalStateException | InvalidParamArgument | EmptyContentException e) {
                 Cliui.printError(e);
             }
-            input = in.nextLine();
+            input = in.nextLine().strip();
         }
 
         Cliui.printGoodbye();

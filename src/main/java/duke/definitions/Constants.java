@@ -1,4 +1,4 @@
-package definitions;
+package duke.definitions;
 
 public final class Constants {
     private Constants() {}

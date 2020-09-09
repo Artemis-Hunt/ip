@@ -1,4 +1,5 @@
 import definitions.CommandPacket;
+import exceptions.InvalidParamArgument;
 import handlers.CommandHandler;
 import handlers.InputParser;
 import printers.Cliui;
@@ -11,6 +12,8 @@ public class Duke {
 
     public static void main(String[] args) {
         Task[] tasks = new Task[100];
+        //Task count is wrapped in an array, so that the same variable is
+        //accessed and modified in all called methods;
         int[] taskCountWrapper = {0};
 
         String input;
@@ -21,9 +24,15 @@ public class Duke {
         input = in.nextLine().strip();
 
         while(!(input.equals("bye"))) {
-            CommandPacket packet = new InputParser(input).parseInput();
-            //System.out.println(packet);
-            CommandHandler.handleCommand(packet, tasks, taskCountWrapper);
+            try {
+                CommandPacket packet = new InputParser(input).parseInput();
+                //System.out.println(packet);
+                CommandHandler.handleCommand(packet, tasks, taskCountWrapper);
+            } catch (IllegalStateException e) {
+                Cliui.printError(e);
+            } catch (InvalidParamArgument e) {
+                Cliui.printError(e);
+            }
             input = in.nextLine();
         }
 

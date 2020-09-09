@@ -7,7 +7,7 @@ import printers.Cliui;
 public final class CommandHandler {
 
     public static void handleCommand(CommandPacket command, Task[] tasks, int[] taskCountWrapper) {
-        Task item = new Task("");
+        Task item;
         switch(command.commandType) {
         //No new items added
         case PRINT_LIST:
@@ -35,6 +35,8 @@ public final class CommandHandler {
             String at = command.params.get("at");
             item = new Event(command.commandTitle, at);
             break;
+        default:
+            throw new IllegalStateException("Unexpected commandType: " + command.commandType);
         }
         tasks[taskCountWrapper[0]++] = item;
         Cliui.printTaskAdded(item, taskCountWrapper[0]);

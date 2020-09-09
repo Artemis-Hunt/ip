@@ -1,6 +1,7 @@
 package handlers;
 
 import definitions.*;
+import exceptions.InvalidParamArgument;
 
 import java.util.HashMap;
 
@@ -11,14 +12,14 @@ public final class InputParser {
         this.input = input;
     }
 
-    public CommandPacket parseInput() {
+    public CommandPacket parseInput() throws InvalidParamArgument {
         String commandString;
         String commandTitle = "";
 
         //Find indexes of where command ends and where params start, if any
         int indexOfFirstSpace = input.indexOf(" ");
-        boolean commandTitleExist = (indexOfFirstSpace != -1);
         int indexOfParamStart = input.indexOf(" /");
+        boolean commandTitleExist = (indexOfFirstSpace != -1) && (indexOfFirstSpace != indexOfParamStart);
         boolean paramsExist = (indexOfParamStart != -1);
 
         //Parse input into command, commandTitle, and params, if any

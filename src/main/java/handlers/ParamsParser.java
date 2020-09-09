@@ -1,6 +1,7 @@
 package handlers;
 
 import definitions.Constants;
+import exceptions.InvalidParamArgument;
 
 import java.util.HashMap;
 
@@ -11,7 +12,7 @@ public class ParamsParser {
         this.paramString = paramString;
     }
 
-    public HashMap<String, String> parseParams() {
+    public HashMap<String, String> parseParams() throws InvalidParamArgument {
         HashMap<String, String> params = new HashMap<String, String>();
 
         int paramTypeStartIndex = paramString.indexOf(Constants.PARAM_SEPARATOR);
@@ -20,6 +21,10 @@ public class ParamsParser {
 
         while(shouldContinueParsing) {
             int paramTypeEndIndex = paramSubstring.indexOf(" ");
+            boolean paramArgumentExist = paramTypeEndIndex != -1;
+            if(!paramArgumentExist) {
+                throw new InvalidParamArgument();
+            }
             int paramArgumentStartIndex = paramTypeEndIndex + Constants.LENGTH_OF_SPACE;
             int nextParamStartIndex = paramSubstring.indexOf(Constants.PARAM_SEPARATOR);
             boolean nextParamExist = nextParamStartIndex != -1;

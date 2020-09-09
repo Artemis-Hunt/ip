@@ -58,4 +58,10 @@ public class Cliui {
         System.out.println("Invalid command!");
         printSeparator();
     }
+
+    public static void printError(Exception error) {
+        printSeparator();
+        System.out.println("Error: " + error.getMessage());
+        printSeparator();
+    }
 }

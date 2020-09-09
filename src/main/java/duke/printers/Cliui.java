@@ -1,11 +1,12 @@
-package printers;
+package duke.printers;
 
-import tasktypes.Task;
+import duke.definitions.CommandPacket;
+import duke.tasktypes.Task;
 
 public class Cliui {
     static String separator = "------------------------------------------";
     static String indent = " ";
-    static String greet = " Hello! I'm Duke";
+    static String greet = " Hello! I'm duke.Duke";
     static String prompt = " What can I do for you?";
     static String taskAdded = "Got it. I've added this task:";
     static String taskDone = "Nice! I've marked this task as done:";
@@ -63,5 +64,15 @@ public class Cliui {
         printSeparator();
         System.out.println("Error: " + error.getMessage());
         printSeparator();
+    }
+
+    public static void printPacket(CommandPacket packet) {
+        System.out.println("--- Command packet ---");
+        System.out.println(packet);
+        System.out.println("-----------------------");
+    }
+
+    public static void printInput(String input) {
+        System.out.println("Raw input is:__" + input + "__");
     }
 }

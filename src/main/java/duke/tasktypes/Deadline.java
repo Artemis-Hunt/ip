@@ -1,4 +1,4 @@
-package tasktypes;
+package duke.tasktypes;
 
 public class Deadline extends Task{
     protected String by;

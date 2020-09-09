@@ -1,8 +1,8 @@
-package handlers;
+package duke.handlers;
 
-import definitions.CommandPacket;
-import tasktypes.*;
-import printers.Cliui;
+import duke.definitions.CommandPacket;
+import duke.tasktypes.*;
+import duke.printers.Cliui;
 
 public final class CommandHandler {
 
@@ -17,7 +17,7 @@ public final class CommandHandler {
             Cliui.printInvalid();;
             return;
         case MARK_AS_DONE:
-            int indexOfTask = Integer.parseInt(command.commandTitle) - 1;
+            int indexOfTask = Integer.parseInt(command.commandContent) - 1;
             item = tasks[indexOfTask];
             item.setDone();
             Cliui.printTaskDone(item);
@@ -25,15 +25,15 @@ public final class CommandHandler {
 
         //New items added
         case ADD_TODO:
-            item = new ToDo(command.commandTitle);
+            item = new ToDo(command.commandContent);
             break;
         case ADD_DEADLINE:
             String by = command.params.get("by");
-            item = new Deadline(command.commandTitle, by);
+            item = new Deadline(command.commandContent, by);
             break;
         case ADD_EVENT:
             String at = command.params.get("at");
-            item = new Event(command.commandTitle, at);
+            item = new Event(command.commandContent, at);
             break;
         default:
             throw new IllegalStateException("Unexpected commandType: " + command.commandType);

@@ -1,21 +1,21 @@
-package definitions;
+package duke.definitions;
 
 import java.util.HashMap;
 
 public class CommandPacket {
     public Command commandType;
-    public String commandTitle;
+    public String commandContent;
     public HashMap<String, String> params;
 
-    public CommandPacket(Command commandType, String commandTitle, HashMap<String, String> params) {
+    public CommandPacket(Command commandType, String commandContent, HashMap<String, String> params) {
         this.commandType = commandType;
-        this.commandTitle = commandTitle;
+        this.commandContent = commandContent;
         this.params = params;
     }
 
     @Override
     public String toString() {
-        String stringToPrint = String.format("Definitions.Command: %s, command title: %s%nParams:%n", commandType, commandTitle);
+        String stringToPrint = String.format("Definitions.Command: %s, command title: %s%nParams:%n", commandType, commandContent);
         for(String key: params.keySet()) {
             stringToPrint = stringToPrint + String.format("%s: %s%n", key, params.get(key));
         }

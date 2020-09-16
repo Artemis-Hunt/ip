@@ -13,6 +13,8 @@ public abstract class Task {
         isDone = true;
     }
 
+    public boolean getDone() { return isDone; }
+
     public String getDoneStatusSymbol() {
         return (isDone ? "\u2713" : "\u2718");
     }

@@ -27,12 +27,12 @@ public final class CommandHandler {
             item.setDone();
             Cliui.printTaskDone(item);
             return;
-//        case DELETE_TASK:
-//            indexOfTask = extractIndex(command.commandContent, tasks.size());
-//            item = tasks.get(indexOfTask);
-//            tasks.remove(indexOfTask);
-//            Cliui.printTaskDeleted(item, tasks.size());
-//            return;
+        case DELETE_TASK:
+            indexOfTask = extractIndex(command.commandContent, tasks.size());
+            item = tasks.get(indexOfTask);
+            tasks.remove(indexOfTask);
+            Cliui.printTaskDeleted(item, tasks.size());
+            return;
 
         //New items added
         //Params are processed on a case-by-case basis

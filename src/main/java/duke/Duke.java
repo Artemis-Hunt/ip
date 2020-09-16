@@ -8,8 +8,9 @@ import duke.handlers.CommandHandler;
 import duke.handlers.InputParser;
 import duke.printers.Cliui;
 import duke.tasktypes.Task;
+import duke.handlers.SaveFileHandler;
 
-import java.util.LinkedHashMap;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -18,8 +19,14 @@ public class Duke {
 
     public static void main(String[] args) {
 
-        ArrayList<Task> tasks = new ArrayList<>();
-
+        ArrayList<Task> tasks;
+        SaveFileHandler saveFileHandler = new SaveFileHandler("./data");
+        try {
+            tasks = saveFileHandler.openFile();
+        } catch(IOException e) {
+            Cliui.printError(e);
+            return;
+        }
         String input;
         Scanner in = new Scanner(System.in);
 
@@ -28,11 +35,15 @@ public class Duke {
         input = in.nextLine().strip();
 
         while(!(input.equals("bye"))) {
+            boolean isTasksModified = false;
             try {
                 CommandPacket packet = new InputParser(input).parseInput();
-                CommandHandler.handleCommand(packet, tasks);
+                isTasksModified = CommandHandler.handleCommand(packet, tasks, false);
+                if(isTasksModified) {
+                    saveFileHandler.writeFile(tasks);
+                }
             } catch (IllegalStateException | InvalidParamArgument | EmptyContentException |
-                        InvalidIndexException | NumberFormatException e) {
+                        InvalidIndexException | NumberFormatException | IOException e) {
                 Cliui.printError(e);
             }
             input = in.nextLine().strip();

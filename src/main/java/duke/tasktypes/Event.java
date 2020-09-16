@@ -2,16 +2,20 @@ package duke.tasktypes;
 
 public class Event extends Task{
 
-    protected String startAndEnd;
+    protected String at;
 
-    public Event(String taskName, String startAndEnd) {
+    public Event(String taskName, String at) {
         super(taskName);
-        this.startAndEnd = startAndEnd;
+        this.at = at;
+    }
+
+    public String getAt() {
+        return at;
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (at: " + startAndEnd + ")";
+        return "[E]" + super.toString() + " (at: " + at + ")";
     }
 
 }

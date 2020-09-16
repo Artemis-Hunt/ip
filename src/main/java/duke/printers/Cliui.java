@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class Cliui {
     static String separator = "------------------------------------------";
     static String indent = " ";
-    static String greet = " Hello! I'm duke.Duke";
+    static String greet = " Hello! I'm duke.";
     static String prompt = " What can I do for you?";
     static String taskAdded = "Got it. I've added this task:";
     static String taskDeleted = "Noted. I've removed this task:";
@@ -74,6 +74,15 @@ public class Cliui {
     public static void printError(Exception error) {
         printSeparator();
         System.out.println("Error: " + error.getMessage());
+        printSeparator();
+    }
+
+    public static void printFileError(Exception error) {
+        printSeparator();
+        System.out.println("Error: " + error.getMessage());
+        System.out.println("File has been corrupted");
+        System.out.println("Task list has been initialized as empty.");
+        System.out.println("Duke.txt will be overwritten upon adding any new item To prevent this, type \"bye\"");
         printSeparator();
     }
 

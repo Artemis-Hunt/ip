@@ -10,29 +10,33 @@ import java.util.ArrayList;
 
 public final class CommandHandler {
 
-    public static void handleCommand(CommandPacket command, ArrayList<Task> tasks)
+    public static boolean handleCommand(CommandPacket command, ArrayList<Task> tasks, boolean readFromFile)
             throws InvalidParamArgument, InvalidIndexException, NumberFormatException {
         Task item;
         switch (command.commandType) {
-        //No new items added
+        //No changes to items
         case PRINT_LIST:
             Cliui.printTaskList(tasks, tasks.size());
-            return;
+            return false;
         case INVALID:
             Cliui.printInvalid();
-            return;
+            return false;
+
+        //Changes to items
         case MARK_AS_DONE:
             int indexOfTask = extractIndex(command.commandContent, tasks.size());
             item = tasks.get(indexOfTask);
             item.setDone();
-            Cliui.printTaskDone(item);
-            return;
+            if(!readFromFile) {
+                Cliui.printTaskDone(item);
+            }
+            return true;
 //        case DELETE_TASK:
 //            indexOfTask = extractIndex(command.commandContent, tasks.size());
 //            item = tasks.get(indexOfTask);
 //            tasks.remove(indexOfTask);
 //            Cliui.printTaskDeleted(item, tasks.size());
-//            return;
+//            return true;
 
         //New items added
         //Params are processed on a case-by-case basis
@@ -58,7 +62,11 @@ public final class CommandHandler {
             throw new IllegalStateException("Unexpected commandType: " + command.commandType);
         }
         tasks.add(item);
-        Cliui.printTaskAdded(item, tasks.size());
+        if(!readFromFile) {
+            Cliui.printTaskAdded(item, tasks.size());
+        }
+
+        return true;
     }
 
     static int extractIndex(String inputString, int numOfTasks) throws InvalidIndexException {

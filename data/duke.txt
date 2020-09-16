@@ -1,3 +1,5 @@
-deadline sdklfjsldf /by sdfjhsdfk
 deadline sdkflsjm /by dlksjflksfd
-done 2
+done 1
+todo sdlkfjslkdf
+event homework /at tmr
+done 3

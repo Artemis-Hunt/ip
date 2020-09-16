@@ -83,9 +83,9 @@ public final class InputParser {
         case "done":
             packet = new CommandPacket(Command.MARK_AS_DONE, commandContent, params);
             break;
-//        case "delete":
-//            packet = new CommandPacket(Command.DELETE_TASK, commandContent, params);
-//            break;
+        case "delete":
+            packet = new CommandPacket(Command.DELETE_TASK, commandContent, params);
+            break;
 
         //Failsafe
         default:

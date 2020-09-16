@@ -6,6 +6,7 @@ public enum Command{
     ADD_DEADLINE,
     ADD_EVENT,
     MARK_AS_DONE,
+    DELETE_TASK,
     INVALID
 }
 

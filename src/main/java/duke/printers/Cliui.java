@@ -3,12 +3,15 @@ package duke.printers;
 import duke.definitions.CommandPacket;
 import duke.tasktypes.Task;
 
+import java.util.ArrayList;
+
 public class Cliui {
     static String separator = "------------------------------------------";
     static String indent = " ";
     static String greet = " Hello! I'm duke.Duke";
     static String prompt = " What can I do for you?";
     static String taskAdded = "Got it. I've added this task:";
+    static String taskDeleted = "Noted. I've removed this task:";
     static String taskDone = "Nice! I've marked this task as done:";
     static String goodbye = " Bye. Hope to see you again soon!";
 
@@ -37,6 +40,14 @@ public class Cliui {
         printSeparator();
     }
 
+    public static void printTaskDeleted(Task task, int numOfTasks) {
+        printSeparator();
+        System.out.println(taskDeleted);
+        System.out.println(indent + task);
+        System.out.println("Now you have " + numOfTasks + " tasks in the list");
+        printSeparator();
+    }
+
     public static void printTaskDone(Task task) {
         printSeparator();
         System.out.println(taskDone);
@@ -44,11 +55,11 @@ public class Cliui {
         printSeparator();
     }
 
-    public static void printTaskList(Task[] array, int length) {
+    public static void printTaskList(ArrayList<Task> tasks, int length) {
         printSeparator();
         System.out.println("Here are the tasks in your list:");
         for(int i = 1; i <= length; i++) {
-            Task item = array[i - 1];
+            Task item = tasks.get(i - 1);
             System.out.println(i + "." + item);
         }
         printSeparator();

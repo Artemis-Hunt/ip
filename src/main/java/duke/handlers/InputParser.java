@@ -13,6 +13,20 @@ public final class InputParser {
         this.input = input;
     }
 
+    /**
+     * Example input: deadline do homework /by tomorrow /note skip page 70
+     * commandString: "deadline"
+     * CommandPacket created:
+     * {
+     *  commandType: ADD_DEADLINE
+     *  commandContent: "do homework"
+     *  params: HashMap<String, String>
+     *  {
+     *   "by": "tomorrow"
+     *   "note": "skip page 70"
+     *  }
+     * }
+     */
     public CommandPacket parseInput() throws InvalidParamArgument, EmptyContentException {
         String commandContent = "";
         String restOfCommand;
@@ -22,8 +36,10 @@ public final class InputParser {
         boolean paramsExist = false;
         boolean commandContentExist = false;
 
+        //Split into [command, rest of input]
         String[] buffer = input.split(" ", 2);
         String commandString = buffer[0];
+        //Check for existence of command title
         commandContentExist = buffer.length > 1 && !buffer[1].startsWith("/");
 
         /*
@@ -33,7 +49,7 @@ public final class InputParser {
 
         if(commandContentExist) {
             restOfCommand = buffer[1];
-            buffer = restOfCommand.split("/", 2);
+            buffer = restOfCommand.split(Constants.PARAM_SEPARATOR, 2);
             commandContent = buffer[0];
             paramsExist = buffer.length > 1;
 
@@ -46,10 +62,13 @@ public final class InputParser {
 
         //Returns packet for commands with content e.g. todo
         switch(commandString) {
+        //Commands that do not modify entries
         case "list":
             Command commandType = commandContentExist ? Command.INVALID : Command.PRINT_LIST;
             packet = new CommandPacket(commandType, commandContent, params);
             return packet;
+
+        //Commands that add an entry
         case "todo":
             packet = new CommandPacket(Command.ADD_TODO, commandContent, params);
             break;
@@ -59,9 +78,16 @@ public final class InputParser {
         case "event":
             packet = new CommandPacket(Command.ADD_EVENT, commandContent, params);
             break;
+
+        //Commands that modify an entry
         case "done":
             packet = new CommandPacket(Command.MARK_AS_DONE, commandContent, params);
             break;
+//        case "delete":
+//            packet = new CommandPacket(Command.DELETE_TASK, commandContent, params);
+//            break;
+
+        //Failsafe
         default:
             packet = new CommandPacket(Command.INVALID, commandContent, params);
         }

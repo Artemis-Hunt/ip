@@ -77,6 +77,12 @@ public class Cliui {
         printSeparator();
     }
 
+    public static void printListNotCleared() {
+        printSeparator();
+        System.out.println("Task list has not been modified");
+        printSeparator();
+    }
+
     public static void printInvalid() {
         printSeparator();
         System.out.println("Invalid command!");

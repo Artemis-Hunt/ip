@@ -1,21 +1,19 @@
 package duke.tasktypes;
 
+import java.time.LocalTime;
+import java.time.LocalDate;
+
 /**
  * Deadline task. Requires a date and time to be provided
  */
+public class Deadline extends TaskWithDate{
 
-public class Deadline extends Task{
-    protected String by;
-
-    public Deadline(String taskName, String deadline) {
-        super(taskName);
-        by = deadline;
+    public Deadline(String taskName, LocalDate date, LocalTime time) {
+        super(taskName, date, time);
     }
 
-    public String getBy() {
-        return by;
-    }
+    @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "[D]" + super.toString();
     }
 }

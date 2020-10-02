@@ -1,24 +1,20 @@
 package duke.tasktypes;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 /**
  * Event task. Requires a date and time to be provided
  */
-public class Event extends Task{
+public class Event extends TaskWithDate{
 
-    protected String at;
-
-    public Event(String taskName, String at) {
-        super(taskName);
-        this.at = at;
-    }
-
-    public String getAt() {
-        return at;
+    public Event(String taskName, LocalDate date, LocalTime time) {
+        super(taskName, date, time);
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (at: " + at + ")";
+        return "[E]" + super.toString();
     }
 
 }

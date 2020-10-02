@@ -95,13 +95,14 @@ public class SaveFileHandler {
             Task task = tasks.get(i);
             String contentToWrite = "";
             String taskName = task.getTaskName();
+
             //Writes the corresponding command for the task
             if(task instanceof ToDo) {
                 contentToWrite += "todo " + taskName;
             } else if (task instanceof Deadline) {
-                contentToWrite += "deadline " + taskName + " /by " + ((Deadline) task).getBy();
+                contentToWrite += "deadline " + taskName + " /by " + ((Deadline) task).getDateAndTime();
             } else if (task instanceof Event) {
-                contentToWrite += "event " + taskName + " /at " + ((Event) task).getAt();
+                contentToWrite += "event " + taskName + " /at " + ((Event) task).getDateAndTime();
             }
             writer.write(contentToWrite);
             writer.newLine();

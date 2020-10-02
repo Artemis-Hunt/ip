@@ -6,6 +6,9 @@ import duke.exceptions.InvalidParamArgument;
 
 import java.util.HashMap;
 
+/**
+ * Helper class to parse raw inputs into a commandPacket.
+ */
 public final class InputParser {
     private String input;
 
@@ -14,6 +17,7 @@ public final class InputParser {
     }
 
     /**
+     * Returns a command packet with the parsed input.
      * Example input: deadline do homework /by tomorrow /note skip page 70
      * commandString: "deadline"
      * CommandPacket created:
@@ -26,6 +30,9 @@ public final class InputParser {
      *   "note": "skip page 70"
      *  }
      * }
+     *
+     * @return commandPacket
+     * @throws InvalidParamArgument if any "/" params are invalid e.g. provided with a blank string as argument or provided twice
      */
     public CommandPacket parseInput() throws InvalidParamArgument, EmptyContentException {
         String commandContent = "";
@@ -83,16 +90,20 @@ public final class InputParser {
             packet = new CommandPacket(Command.ADD_EVENT, commandContent, params);
             break;
 
-        //Commands that modify a specific entry
+        //Commands that operate on a specific entry
         case "done":
             packet = new CommandPacket(Command.MARK_AS_DONE, commandContent, params);
             break;
         case "delete":
             packet = new CommandPacket(Command.DELETE_TASK, commandContent, params);
             break;
+        case "find":
+            packet = new CommandPacket(Command.FIND_TASK, commandContent, params);
+            break;
 
         default:
             packet = new CommandPacket(Command.INVALID, commandContent, params);
+            return packet;
         }
 
         if(commandContent.equals("")) {
@@ -100,23 +111,5 @@ public final class InputParser {
         }
 
         return packet;
-    }
-
-    private String extractCommandContent(String restOfCommand, boolean paramsExist, int indexOfParamStart) {
-        if(paramsExist) {
-            return restOfCommand.substring(0, indexOfParamStart);
-        }
-
-        return restOfCommand;
-    }
-
-    private Command handleCommandWithoutContent(String commandString) {
-        if(!commandString.equals(input)) {
-            return Command.INVALID;
-        }
-        switch(commandString) {
-        case "list": return Command.PRINT_LIST;
-        default: return Command.INVALID;
-        }
     }
 }

@@ -3,7 +3,7 @@
 ## Introduction 
 
 Task tracker. Supports simple todo (no date),
-deadline (due date) and event (event date).
+deadline (date and time) and event (date and time).
 
 Loads task list from `/data/duke.txt` on startup, creating
 the file if not already present.

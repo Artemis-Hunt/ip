@@ -1,21 +1,17 @@
 package duke.tasktypes;
 
-public class Event extends Task{
+import java.time.LocalDate;
+import java.time.LocalTime;
 
-    protected String at;
+public class Event extends TaskWithDate{
 
-    public Event(String taskName, String at) {
-        super(taskName);
-        this.at = at;
-    }
-
-    public String getAt() {
-        return at;
+    public Event(String taskName, LocalDate date, LocalTime time) {
+        super(taskName, date, time);
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (at: " + at + ")";
+        return "[E]" + super.toString();
     }
 
 }

@@ -79,9 +79,9 @@ public class SaveFileHandler {
             if(task instanceof ToDo) {
                 contentToWrite += "todo " + taskName;
             } else if (task instanceof Deadline) {
-                contentToWrite += "deadline " + taskName + " /by " + ((Deadline) task).getBy();
+                contentToWrite += "deadline " + taskName + " /by " + ((Deadline) task).getDateAndTime();
             } else if (task instanceof Event) {
-                contentToWrite += "event " + taskName + " /at " + ((Event) task).getAt();
+                contentToWrite += "event " + taskName + " /at " + ((Event) task).getDateAndTime();
             }
             writer.write(contentToWrite);
             writer.newLine();

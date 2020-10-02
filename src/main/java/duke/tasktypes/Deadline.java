@@ -1,17 +1,16 @@
 package duke.tasktypes;
 
-public class Deadline extends Task{
-    protected String by;
+import java.time.LocalTime;
+import java.time.LocalDate;
 
-    public Deadline(String taskName, String deadline) {
-        super(taskName);
-        by = deadline;
+public class Deadline extends TaskWithDate{
+
+    public Deadline(String taskName, LocalDate date, LocalTime time) {
+        super(taskName, date, time);
     }
 
-    public String getBy() {
-        return by;
-    }
+    @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by + ")";
+        return "[D]" + super.toString();
     }
 }

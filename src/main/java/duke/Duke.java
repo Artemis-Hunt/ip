@@ -11,6 +11,7 @@ import duke.tasktypes.Task;
 import duke.handlers.SaveFileHandler;
 
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -44,7 +45,7 @@ public class Duke {
                     saveFileHandler.writeFile(tasks);
                 }
             } catch (IllegalStateException | InvalidParamArgument | EmptyContentException |
-                        InvalidIndexException | NumberFormatException | IOException e) {
+                        InvalidIndexException | NumberFormatException | IOException | DateTimeParseException e) {
                 Cliui.printError(e);
             }
             input = in.nextLine().strip();

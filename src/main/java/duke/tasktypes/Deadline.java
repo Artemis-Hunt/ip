@@ -1,5 +1,9 @@
 package duke.tasktypes;
 
+/**
+ * Deadline task. Requires a date and time to be provided
+ */
+
 public class Deadline extends Task{
     protected String by;
 

@@ -5,6 +5,9 @@ import duke.exceptions.InvalidParamArgument;
 
 import java.util.HashMap;
 
+/**
+ * Helper class to parse the params in a command i.e. everything term that starts with "/"
+ */
 public class ParamsParser {
     protected String paramSubstring;
 
@@ -12,7 +15,10 @@ public class ParamsParser {
         this.paramSubstring = paramSubstring;
     }
 
+
     /**
+     * Parses a string of one or more params into a HashMap
+     *
      * Example input: deadline do homework /by tomorrow /note skip page 70
      * --First iteration--
      * paramSubstring: "by tomorrow /note skip page 70"
@@ -22,11 +28,15 @@ public class ParamsParser {
      * paramSubstring: "note skip page 70"
      * paramType: "note"
      * paramArgument: "skip page 70"
-     * etc.
+     *
+     * @return a HashMap of all command params
+     * @throws InvalidParamArgument if any command param has an empty argument, or the command param is provided twice
      */
     public HashMap<String, String> parseParams() throws InvalidParamArgument {
-        HashMap<String, String> params = new HashMap<>();
+        //Temporary array to store split strings
         String[] buffer;
+
+        HashMap<String, String> params = new HashMap<>();
         boolean shouldContinueParsing = true;
 
         do {

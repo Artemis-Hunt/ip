@@ -1,5 +1,8 @@
 package duke.tasktypes;
 
+/**
+ * General task type - not allowed to initialize
+ */
 public abstract class Task {
     protected String taskName;
     protected boolean isDone;

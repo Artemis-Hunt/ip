@@ -1,5 +1,8 @@
 package duke.tasktypes;
 
+/**
+ * Event task. Requires a date and time to be provided
+ */
 public class Event extends Task{
 
     protected String at;

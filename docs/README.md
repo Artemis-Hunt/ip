@@ -45,7 +45,7 @@ Adds a Deadline item to the task list. Compulsory to enter due date, in `string`
 
 Format: `deadline <task name> /by <date> <time>`
 
-Date has format `yyyy-mm-dd`
+Date format `yyyy-mm-dd`
 
 Time format: `hh:ss` in 24-hour format
 
@@ -57,7 +57,7 @@ Adds an Event item to the task list. Compulsory to enter event date, in `string`
 
 Format: `event <task name> /at <date> <time>`
 
-Date has format `yyyy-mm-dd`
+Date format `yyyy-mm-dd`
 
 Time format: `hh:ss` in 24-hour format
 

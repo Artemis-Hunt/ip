@@ -48,6 +48,7 @@ public final class CommandHandler {
             Cliui.printClearListConfirmation();
             Scanner in = new Scanner(System.in);
             String confirmationInput = in.nextLine().toLowerCase();
+
             if(confirmationInput.equals("y")) {
                 Cliui.printListCleared();
                 tasks.clear();
@@ -57,10 +58,9 @@ public final class CommandHandler {
                 Cliui.printListNotCleared();
                 return false;
             }
-            else {
-                Cliui.printInvalid();
-                return false;
-            }
+
+            Cliui.printInvalid();
+            return false;
 
         /*
          * New items added

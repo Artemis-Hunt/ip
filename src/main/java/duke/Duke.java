@@ -5,7 +5,7 @@ import duke.exceptions.EmptyContentException;
 import duke.exceptions.InvalidIndexException;
 import duke.exceptions.InvalidParamArgument;
 import duke.handlers.CommandHandler;
-import duke.handlers.InputParser;
+import duke.parsers.InputParser;
 import duke.printers.Cliui;
 import duke.tasktypes.Task;
 import duke.handlers.SaveFileHandler;
@@ -39,6 +39,7 @@ public class Duke {
             try {
                 CommandPacket packet = new InputParser(input).parseInput();
                 isTasksModified = CommandHandler.handleCommand(packet, tasks, false);
+
                 if(isTasksModified) {
                     saveFileHandler.writeFile(tasks);
                 }

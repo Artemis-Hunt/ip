@@ -1,4 +1,4 @@
-package duke.handlers;
+package duke.parsers;
 
 import duke.definitions.*;
 import duke.exceptions.EmptyContentException;
@@ -60,12 +60,16 @@ public final class InputParser {
             params = new ParamsParser(paramSubstring).parseParams();
         }
 
-        //Returns packet for commands with content e.g. todo
         switch(commandString) {
-        //Commands that do not modify entries
+        //Commands that do not modify specific entries
+        //These commands should not have any commandContent
+        //Early return ensures that EmptyContentException is not thrown
         case "list":
             Command commandType = commandContentExist ? Command.INVALID : Command.PRINT_LIST;
             packet = new CommandPacket(commandType, commandContent, params);
+            return packet;
+        case "clear":
+            packet = new CommandPacket(Command.CLEAR_TASKS, commandContent, params);
             return packet;
 
         //Commands that add an entry
@@ -79,7 +83,7 @@ public final class InputParser {
             packet = new CommandPacket(Command.ADD_EVENT, commandContent, params);
             break;
 
-        //Commands that modify an entry
+        //Commands that modify a specific entry
         case "done":
             packet = new CommandPacket(Command.MARK_AS_DONE, commandContent, params);
             break;
@@ -87,7 +91,6 @@ public final class InputParser {
             packet = new CommandPacket(Command.DELETE_TASK, commandContent, params);
             break;
 
-        //Failsafe
         default:
             packet = new CommandPacket(Command.INVALID, commandContent, params);
         }

@@ -7,6 +7,7 @@ import duke.tasktypes.*;
 import duke.printers.Cliui;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public final class CommandHandler {
 
@@ -14,7 +15,7 @@ public final class CommandHandler {
             throws InvalidParamArgument, InvalidIndexException, NumberFormatException {
         Task item;
         switch (command.commandType) {
-        //No changes to items
+        //No changes to items, return false
         case PRINT_LIST:
             Cliui.printTaskList(tasks, tasks.size());
             return false;
@@ -22,7 +23,7 @@ public final class CommandHandler {
             Cliui.printInvalid();
             return false;
 
-        //Changes to items
+        //Changes to items, return true
         case MARK_AS_DONE:
             int indexOfTask = extractIndex(command.commandContent, tasks.size());
             item = tasks.get(indexOfTask);
@@ -37,10 +38,29 @@ public final class CommandHandler {
             tasks.remove(indexOfTask);
             Cliui.printTaskDeleted(item, tasks.size());
             return true;
+        case CLEAR_TASKS:
+            Cliui.printClearListConfirmation();
+            Scanner in = new Scanner(System.in);
+            String confirmationInput = in.nextLine().toLowerCase();
+            if(confirmationInput.equals("y")) {
+                tasks.clear();
+                return true;
+            }
+            else if(confirmationInput.equals("n")) {
+                return false;
+            }
+            else {
+                Cliui.printInvalid();
+                return false;
+            }
 
-        //New items added
-        //Params are processed on a case-by-case basis
-        //E.g. deadline looks for param 'by" only, and ignores any other params
+        /*
+         * New items added
+         * Params are processed on a case-by-case basis
+         * E.g. deadline looks for param 'by" only, and ignores any other params
+         * Only return at end of code as the task has to be added to task list
+         * and task has to be printed before returning true
+        */
         case ADD_TODO:
             item = new ToDo(command.commandContent);
             break;

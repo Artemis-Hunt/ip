@@ -57,11 +57,29 @@ public class Cliui {
 
     public static void printTaskList(ArrayList<Task> tasks, int length) {
         printSeparator();
-        System.out.println("Here are the tasks in your list:");
-        for(int i = 1; i <= length; i++) {
-            Task item = tasks.get(i - 1);
-            System.out.println(i + "." + item);
+        boolean isListEmpty = length == 0;
+        if(isListEmpty) {
+            System.out.println("Task list empty!");
         }
+        else {
+            System.out.println("Here are the tasks in your list:");
+            for (int i = 1; i <= length; i++) {
+                Task item = tasks.get(i - 1);
+                System.out.println(i + "." + item);
+            }
+        }
+        printSeparator();
+    }
+
+    public static void printClearListConfirmation() {
+        printSeparator();
+        System.out.println("Clearing entire task list. Are you sure? (y/n)");
+        printSeparator();
+    }
+
+    public static void printListCleared() {
+        printSeparator();
+        System.out.println("Task list has been cleared");
         printSeparator();
     }
 

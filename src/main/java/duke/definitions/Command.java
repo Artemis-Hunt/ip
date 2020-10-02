@@ -7,6 +7,7 @@ public enum Command{
     ADD_EVENT,
     MARK_AS_DONE,
     DELETE_TASK,
+    CLEAR_TASKS,
     INVALID
 }
 

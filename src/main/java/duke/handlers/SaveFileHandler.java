@@ -4,6 +4,7 @@ import duke.definitions.CommandPacket;
 import duke.exceptions.EmptyContentException;
 import duke.exceptions.InvalidIndexException;
 import duke.exceptions.InvalidParamArgument;
+import duke.parsers.InputParser;
 import duke.printers.Cliui;
 import duke.tasktypes.*;
 

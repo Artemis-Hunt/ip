@@ -1,4 +1,4 @@
-package duke.handlers;
+package duke.parsers;
 
 import duke.definitions.Constants;
 import duke.exceptions.InvalidParamArgument;

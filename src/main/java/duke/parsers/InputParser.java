@@ -33,6 +33,7 @@ public final class InputParser {
      *
      * @return commandPacket
      * @throws InvalidParamArgument if any "/" params are invalid e.g. provided with a blank string as argument or provided twice
+     * @throws EmptyContentException if the command expects some content (e.g. task name or task index) but none is provided
      */
     public CommandPacket parseInput() throws InvalidParamArgument, EmptyContentException {
         String commandContent = "";
@@ -59,7 +60,6 @@ public final class InputParser {
             buffer = restOfCommand.split(Constants.PARAM_SEPARATOR, 2);
             commandContent = buffer[0];
             paramsExist = buffer.length > 1;
-
         }
 
         if(paramsExist) {

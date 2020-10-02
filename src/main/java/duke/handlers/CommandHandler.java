@@ -17,7 +17,7 @@ import java.util.Scanner;
  */
 public final class CommandHandler {
 
-    public static boolean handleCommand(CommandPacket command, ArrayList<Task> tasks, boolean readFromFile)
+    public static boolean handleCommand(CommandPacket command, ArrayList<Task> tasks, boolean isReadFromFile)
             throws InvalidParamArgument, InvalidIndexException, NumberFormatException, DateTimeParseException {
     /**
      * Handles the given commandPacket - takes action based on the commandType.
@@ -94,6 +94,7 @@ public final class CommandHandler {
             item = new ToDo(command.commandContent);
             break;
         case ADD_DEADLINE:
+            //"by" will be null if it wasn't provided as a param in the command
             String by = command.params.get("by");
             if(by == null) {
                 throw new InvalidParamArgument("by");
@@ -105,6 +106,7 @@ public final class CommandHandler {
             item = new Deadline(command.commandContent, date, time);
             break;
         case ADD_EVENT:
+            //"at" will be null if it wasn't provided as a param in the command
             String at = command.params.get("at");
             if(at == null) {
                 throw new InvalidParamArgument("at");

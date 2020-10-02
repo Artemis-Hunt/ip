@@ -5,6 +5,9 @@ import duke.tasktypes.Task;
 
 import java.util.ArrayList;
 
+/**
+ * Helper class to handle all printing matters, including error messages.
+ */
 public class Cliui {
     static String separator = "------------------------------------------";
     static String indent = " ";

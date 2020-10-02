@@ -2,7 +2,10 @@ package duke.tasktypes;
 import java.time.LocalTime;
 import java.time.LocalDate;
 
-public class TaskWithDate extends Task{
+/**
+ * General task type with date and time - not allowed to initialize
+ */
+public abstract class TaskWithDate extends Task{
     protected String dateString;
     protected LocalDate date;
     protected LocalTime time;

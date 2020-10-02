@@ -28,6 +28,10 @@ public final class CommandHandler {
         case INVALID:
             Cliui.printInvalid();
             return false;
+        case FIND_TASK:
+            ArrayList<Task> filteredArray = filterTasks(tasks, command.commandContent);
+            Cliui.printFindTask(filteredArray, filteredArray.size());
+            return false;
 
         //Changes to items, return true
         case MARK_AS_DONE:
@@ -130,5 +134,24 @@ public final class CommandHandler {
 
         Object[] dateAndTime = {date, time};
         return dateAndTime;
+    }
+      
+    /**
+     * Returns filtered tasks based on search string
+     *
+     * @param tasks overall task list
+     * @param searchString raw search string
+     * @return ArrayList of matching tasks
+     */
+    static ArrayList<Task> filterTasks(ArrayList<Task> tasks, String searchString) {
+        ArrayList<Task> filteredArray = new ArrayList<>();
+        for(Task task: tasks) {
+            String taskName = task.getTaskName();
+            boolean containsSearchString = taskName.contains(searchString);
+            if(containsSearchString) {
+                filteredArray.add(task);
+            }
+        }
+        return filteredArray;
     }
 }

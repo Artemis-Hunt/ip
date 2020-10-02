@@ -5,15 +5,21 @@ import duke.exceptions.InvalidIndexException;
 import duke.exceptions.InvalidParamArgument;
 import duke.tasktypes.*;
 import duke.printers.Cliui;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public final class CommandHandler {
 
     public static boolean handleCommand(CommandPacket command, ArrayList<Task> tasks, boolean readFromFile)
-            throws InvalidParamArgument, InvalidIndexException, NumberFormatException {
+            throws InvalidParamArgument, InvalidIndexException, NumberFormatException, DateTimeParseException {
         Task item;
+        Object[] dateAndTime;
+        LocalDate date;
+        LocalTime time;
         switch (command.commandType) {
         //No changes to items, return false
         case PRINT_LIST:
@@ -42,17 +48,19 @@ public final class CommandHandler {
             Cliui.printClearListConfirmation();
             Scanner in = new Scanner(System.in);
             String confirmationInput = in.nextLine().toLowerCase();
+
             if(confirmationInput.equals("y")) {
+                Cliui.printListCleared();
                 tasks.clear();
                 return true;
             }
             else if(confirmationInput.equals("n")) {
+                Cliui.printListNotCleared();
                 return false;
             }
-            else {
-                Cliui.printInvalid();
-                return false;
-            }
+
+            Cliui.printInvalid();
+            return false;
 
         /*
          * New items added
@@ -69,14 +77,22 @@ public final class CommandHandler {
             if(by == null) {
                 throw new InvalidParamArgument("by");
             }
-            item = new Deadline(command.commandContent, by);
+            dateAndTime = parseDateAndTime(by);
+            date = (LocalDate) dateAndTime[0];
+            time = (LocalTime) dateAndTime[1];
+
+            item = new Deadline(command.commandContent, date, time);
             break;
         case ADD_EVENT:
             String at = command.params.get("at");
             if(at == null) {
                 throw new InvalidParamArgument("at");
             }
-            item = new Event(command.commandContent, at);
+            dateAndTime = parseDateAndTime(at);
+            date = (LocalDate) dateAndTime[0];
+            time = (LocalTime) dateAndTime[1];
+
+            item = new Event(command.commandContent, date, time);
             break;
         default:
             throw new IllegalStateException("Unexpected commandType: " + command.commandType);
@@ -99,5 +115,20 @@ public final class CommandHandler {
         } catch (NumberFormatException e) {
             throw new InvalidIndexException(inputString);
         }
+    }
+
+    static Object[] parseDateAndTime(String rawDateString) throws DateTimeParseException {
+        String[] splitString = rawDateString.split(" ");
+        if(splitString.length > 2) {
+            throw new DateTimeParseException("Invalid date entered!", rawDateString, 0);
+        }
+        String dateString = splitString[0];
+        String timeString = splitString[1];
+
+        LocalDate date = LocalDate.parse(dateString);
+        LocalTime time = LocalTime.parse(timeString);
+
+        Object[] dateAndTime = {date, time};
+        return dateAndTime;
     }
 }

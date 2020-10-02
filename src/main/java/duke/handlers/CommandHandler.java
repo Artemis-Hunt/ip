@@ -12,10 +12,25 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Helper class to handle a commandPacket
+ */
 public final class CommandHandler {
 
     public static boolean handleCommand(CommandPacket command, ArrayList<Task> tasks, boolean readFromFile)
             throws InvalidParamArgument, InvalidIndexException, NumberFormatException, DateTimeParseException {
+    /**
+     * Handles the given commandPacket - takes action based on the commandType.
+     *
+     * @param command the provided commandPacket
+     * @param tasks over task list
+     * @param isReadFromFile
+     * @return boolean to indicate whether the task list has been modified
+     * @throws InvalidParamArgument if a compulsory command param is not provided e.g. "/by" for deadline
+     * @throws InvalidIndexException if an invalid task index is given for op[erations on a specific task
+     * @throws NumberFormatException if task index given is not in an integer form or is not-a-number
+     * @throws DateTimeParseException if date and time provided are in an invalid format
+     */
         Task item;
         Object[] dateAndTime;
         LocalDate date;
@@ -38,7 +53,7 @@ public final class CommandHandler {
             int indexOfTask = extractIndex(command.commandContent, tasks.size());
             item = tasks.get(indexOfTask);
             item.setDone();
-            if(!readFromFile) {
+            if(!isReadFromFile) {
                 Cliui.printTaskDone(item);
             }
             return true;
@@ -49,6 +64,8 @@ public final class CommandHandler {
             Cliui.printTaskDeleted(item, tasks.size());
             return true;
         case CLEAR_TASKS:
+            //Requires user to confirm clear operation by typing "y"
+            //Aborts if "n" or other input
             Cliui.printClearListConfirmation();
             Scanner in = new Scanner(System.in);
             String confirmationInput = in.nextLine().toLowerCase();
@@ -102,13 +119,24 @@ public final class CommandHandler {
             throw new IllegalStateException("Unexpected commandType: " + command.commandType);
         }
         tasks.add(item);
-        if(!readFromFile) {
+
+        //Only print task added message if it's not originating from the save file
+        //Prevents mass printing of messages when reading from save file
+        if(!isReadFromFile) {
             Cliui.printTaskAdded(item, tasks.size());
         }
 
         return true;
     }
 
+    /**
+     * Extracts the array index of the task to select, from the input argument.
+     *
+     * @param inputString
+     * @param numOfTasks
+     * @return array index
+     * @throws InvalidIndexException if task index given is not in an integer form or is not-a-number
+     */
     static int extractIndex(String inputString, int numOfTasks) throws InvalidIndexException {
         try {
             int indexOfTask = Integer.parseInt(inputString) - 1;

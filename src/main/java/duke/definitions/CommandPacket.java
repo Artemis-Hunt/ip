@@ -2,6 +2,9 @@ package duke.definitions;
 
 import java.util.HashMap;
 
+/**
+ * Defines a CommandPacket. Must be initialized with all 3 properties, though they can be empty.
+ */
 public class CommandPacket {
     public Command commandType;
     public String commandContent;

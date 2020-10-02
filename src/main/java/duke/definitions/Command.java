@@ -8,6 +8,7 @@ public enum Command{
     MARK_AS_DONE,
     DELETE_TASK,
     CLEAR_TASKS,
+    FIND_TASK,
     INVALID
 }
 

@@ -14,6 +14,10 @@ public class Cliui {
     static String taskDeleted = "Noted. I've removed this task:";
     static String taskDone = "Nice! I've marked this task as done:";
     static String goodbye = " Bye. Hope to see you again soon!";
+    static String emptyTaskList = "Task list is empty!";
+    static String noTasksFound = "No matching tasks!";
+    static String showTaskList = "Here are the tasks in your list:";
+    static String showMatchingTasks = "Here are the matching tasks in your list:";
 
     public static void printSeparator() {
         System.out.println(separator);
@@ -57,17 +61,7 @@ public class Cliui {
 
     public static void printTaskList(ArrayList<Task> tasks, int length) {
         printSeparator();
-        boolean isListEmpty = length == 0;
-        if(isListEmpty) {
-            System.out.println("Task list empty!");
-        }
-        else {
-            System.out.println("Here are the tasks in your list:");
-            for (int i = 1; i <= length; i++) {
-                Task item = tasks.get(i - 1);
-                System.out.println(i + "." + item);
-            }
-        }
+        printList(tasks, length, emptyTaskList, showTaskList);
         printSeparator();
     }
 
@@ -86,6 +80,12 @@ public class Cliui {
     public static void printInvalid() {
         printSeparator();
         System.out.println("Invalid command!");
+        printSeparator();
+    }
+
+    public static void printFindTask(ArrayList<Task> tasks, int length) {
+        printSeparator();
+        printList(tasks, length, noTasksFound, showMatchingTasks);
         printSeparator();
     }
 
@@ -112,5 +112,19 @@ public class Cliui {
 
     public static void printInput(String input) {
         System.out.println("Raw input is:__" + input + "__");
+    }
+
+    static void printList(ArrayList<Task> tasks, int length, String emptyMessage, String listMessage) {
+        boolean isListEmpty = length == 0;
+        if(isListEmpty) {
+            System.out.println(emptyMessage);
+        }
+        else {
+            System.out.println(listMessage);
+            for (int i = 1; i <= length; i++) {
+                Task item = tasks.get(i - 1);
+                System.out.println(i + "." + item);
+            }
+        }
     }
 }
